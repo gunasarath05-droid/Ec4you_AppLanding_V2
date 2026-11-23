@@ -148,7 +148,9 @@ export const fr: Dict = {
     eyebrow: 'Technologies',
     heading: 'Nos technologies',
     body: 'Des outils modernes et éprouvés, choisis pour la performance, la sécurité et l’évolutivité.',
-    note: 'Confirmez les cinq technologies et remplacez-les par les logos officiels avant le lancement.',
+    /** Category names for the stack groups, in the order used in Tech.tsx. */
+    groups: ['Applications mobiles', 'Web et interfaces', 'Serveurs et API', 'Bases de données', 'Infonuagique et DevOps', 'IA et apprentissage automatique', 'Design et tests'],
+    note: 'Les logos sont des marques de commerce de leurs propriétaires respectifs.',
   },
 
   engage: {

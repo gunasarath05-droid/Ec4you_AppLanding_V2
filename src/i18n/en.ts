@@ -151,7 +151,9 @@ export const en = {
     eyebrow: 'Technologies',
     heading: 'Tech stack we use',
     body: 'Modern, proven tools chosen for performance, security and scale.',
-    note: 'Confirm the five technologies and swap in official logos before launch.',
+    /** Category names for the stack groups, in the order used in Tech.tsx. */
+    groups: ['Mobile apps', 'Web & frontend', 'Backend & APIs', 'Databases', 'Cloud & DevOps', 'AI & machine learning', 'Design & testing'],
+    note: 'Logos are trademarks of their respective owners.',
   },
 
   engage: {

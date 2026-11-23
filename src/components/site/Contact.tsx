@@ -168,44 +168,30 @@ export function Contact() {
           <div className="foot__brand">
             <Logo size={26} />
             <p>{f.tagline}</p>
+          </div>
+          <div>
+            <h4>{f.contactTitle}</h4>
             <ul className="foot__contact">
               <li><Icon name="mapPin" size={16} /><a href={brand.mapUrl} target="_blank" rel="noopener">{f.address}</a></li>
               <li><Icon name="phone" size={16} /><a href={`tel:${brand.tel}`} dir="ltr">{brand.phone}</a></li>
               <li><Icon name="mail" size={16} /><a href={`mailto:${brand.email}`}>{brand.email}</a></li>
             </ul>
           </div>
-          <div className="foot__cols">
-            <div>
-              <h4>{f.navTitle}</h4>
-              <ul>
-                <li><a href="#top">{t.common.homeShort}</a></li>
-                {t.nav.slice(0, 3).map((n) => <li key={n.href}><a href={n.href}>{n.label}</a></li>)}
-                <li><a href="#faq">{t.faq.eyebrow}</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4>{f.companyTitle}</h4>
-              <ul>
-                <li><a href="#engage">{f.engagement}</a></li>
-                <li><a href="#contact">{f.contactUs}</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4>{f.legalTitle}</h4>
-              <ul>
-                <li><a href="/terms" hrefLang="en">{t.common.terms}</a></li>
-                <li><a href="/privacy" hrefLang="en">{t.common.privacy}</a></li>
-                <li><a href="#cookie-settings">{t.common.cookies}</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4>{f.followTitle}</h4>
-              <ul>
-                {brand.social.map((s) => (
-                  <li key={s.name}><a href={s.href} target="_blank" rel="noopener"><span style={{display: 'inline-flex', gap: 8, alignItems: 'center'}}><Social name={s.icon} />{s.name}</span></a></li>
-                ))}
-              </ul>
-            </div>
+          <div>
+            <h4>{f.legalTitle}</h4>
+            <ul>
+              <li><a href="/terms" hrefLang="en">{t.common.terms}</a></li>
+              <li><a href="/privacy" hrefLang="en">{t.common.privacy}</a></li>
+              <li><a href="#cookie-settings">{t.common.cookies}</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>{f.followTitle}</h4>
+            <ul className="foot__social">
+              {brand.social.map((s) => (
+                <li key={s.name}><a href={s.href} target="_blank" rel="noopener" aria-label={s.name} title={s.name}><Social name={s.icon} /></a></li>
+              ))}
+            </ul>
           </div>
         </footer>
         <div className="copy"><span>© {new Date().getFullYear()} EC4YOU. {t.common.rights}</span><svg width="60" height="8" viewBox="0 0 60 8" aria-hidden="true"><circle cx="4" cy="4" r="3.5" fill="#FF6633" /><rect x="14" y="1.5" width="20" height="5" fill="#FF6633" /><circle cx="44" cy="4" r="3.5" fill="#FF6633" /></svg></div>

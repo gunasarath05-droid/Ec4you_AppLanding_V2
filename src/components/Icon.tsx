@@ -42,7 +42,7 @@ export function Social({name}: {name: 'linkedin' | 'instagram' | 'facebook' | 'x
   }[name];
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d={d} />
+      <path d={d} fillRule="evenodd" clipRule="evenodd" />
     </svg>
   );
 }
