@@ -13,20 +13,20 @@ import {Problems} from '@/components/site/Problems';
 import {Services} from '@/components/site/Services';
 import {Tech} from '@/components/site/Tech';
 import {Testimonials} from '@/components/site/Testimonials';
-import {Trust} from '@/components/site/Trust';
 import {Work} from '@/components/site/Work';
+import {getDict, type Locale} from '@/i18n';
 
-export default function Page() {
+export default async function Page({params}: {params: Promise<{lang: string}>}) {
+  const t = getDict((await params).lang as Locale);
   return (
     <>
       <ScrollEngine />
       <Motion />
       <ScrollProgress />
-      <a className="sr-only" href="#contact">Skip to contact form</a>
+      <a className="sr-only" href="#contact">{t.common.skip}</a>
       <Nav />
       <main>
         <Hero />
-        <Trust />
         <Problems />
         <Services />
         <Work />

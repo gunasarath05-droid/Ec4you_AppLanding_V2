@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
-import {brand} from '@/content';
+import {notFound} from 'next/navigation';
+import {brand} from '@/brand';
 import {SubPage} from '@/components/SubPage';
 
 export const metadata: Metadata = {title: 'Terms of Service — EC4YOU'};
@@ -7,7 +8,9 @@ export const metadata: Metadata = {title: 'Terms of Service — EC4YOU'};
 // TEMPLATE: have it reviewed by a qualified legal professional before launch.
 const UPDATED = '[date]';
 
-export default function Terms() {
+/** Legal pages are published in English only; /ar/... and /fr/... return 404. */
+export default async function Terms({params}: {params: Promise<{lang: string}>}) {
+  if ((await params).lang !== 'en') notFound();
   return (
     <SubPage>
       <article className="legal">

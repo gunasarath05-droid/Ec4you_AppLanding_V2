@@ -1,6 +1,6 @@
 'use client';
 import {useEffect, useState} from 'react';
-import {services} from '@/content';
+import {useI18n} from '@/i18n/I18nProvider';
 import {useReveals} from '@/hooks/useReveals';
 import {prefersReducedMotion} from '@/hooks/useReducedMotion';
 import {Icon} from '../Icon';
@@ -95,13 +95,10 @@ function Screen({i}: {i: number}) {
   return <>{S[i]}</>;
 }
 
-const ALL = [
-  {icon: 'smartphone' as const, title: services.main.title, body: services.main.body},
-  ...services.items.map((s) => ({icon: s.icon, title: s.title, body: s.body})),
-];
-
 export function Services() {
   const ref = useReveals<HTMLElement>();
+  const services = useI18n().t.services;
+  const ALL = services.items;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -110,7 +107,7 @@ export function Services() {
     let visible = false;
     const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), {threshold: 0.3});
     if (ref.current) io.observe(ref.current);
-    const t = window.setInterval(() => visible && setActive((a) => (a + 1) % ALL.length), 4500);
+    const t = window.setInterval(() => visible && setActive((a) => (a + 1) % ART.length), 4500);
     return () => { clearInterval(t); io.disconnect(); };
   }, [paused, ref]);
 
@@ -132,7 +129,7 @@ export function Services() {
               </li>
             ))}
           </ul>
-          <div className="svc__phone" data-reveal="right" aria-live="polite" id="svc-phone">
+          <div className="svc__phone" data-reveal="right" aria-live="polite" id="svc-phone" dir="ltr">
             <div className="sphone">
               <div className="sphone__scr">
                 <div className="phone__status"><span>9:41</span><i /><Icon name="battery" size={14} /></div>
@@ -140,7 +137,7 @@ export function Services() {
                 <div className="tabbar"><Icon name="house" size={17} /><Icon name="bars" size={17} /><Icon name="message" size={17} /><Icon name="settings" size={17} /></div>
               </div>
             </div>
-            <p className="svc__cap"><Icon name={ALL[active].icon} size={16} />{ALL[active].title}</p>
+            <p className="svc__cap" dir="auto"><Icon name={ALL[active].icon} size={16} />{ALL[active].title}</p>
           </div>
         </div>
       </div>

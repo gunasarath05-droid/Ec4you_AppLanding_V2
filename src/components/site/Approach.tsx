@@ -1,6 +1,7 @@
 'use client';
 import {useEffect, useRef, useState} from 'react';
-import {plan} from '@/content';
+import {fmt} from '@/i18n/config';
+import {useI18n} from '@/i18n/I18nProvider';
 import {useReveals} from '@/hooks/useReveals';
 import {onFrame} from '@/lib/scroll';
 
@@ -22,11 +23,10 @@ const SHAPES: Shape[] = [
   {r: [428, 862, 181, 51], step: 2}, {r: [671, 862, 181, 51], step: 2}, {r: [914, 862, 181, 51], step: 2},
   {d: [518, 1103], step: 3}, {d: [761.5, 1103], step: 3}, {r: [914, 1077, 181, 52], step: 3},
 ];
-const GROUPS = [['R&D'], ['UI & UX'], ['Architecture', 'Production'], ['Deployment', 'Testing & QA', 'Handover']];
-const CAPTION = ['Understanding the problem', 'Shaping the experience', 'Your product takes shape', 'Complete — and growing'];
 
 export function Approach() {
   const ref = useReveals<HTMLElement>();
+  const plan = useI18n().t.plan;
   const items = useRef<(HTMLLIElement | null)[]>([]);
   const [active, setActive] = useState(0);
   const last = useRef(-1);
@@ -57,7 +57,7 @@ export function Approach() {
         <div className="head head--center" data-reveal>
           <div>
             <span className="eyebrow">{plan.eyebrow}</span>
-            <h2 className="h2" id="proc-title">From first conversation<br />to App Store launch</h2>
+            <h2 className="h2" id="proc-title">{plan.heading[0]}<br />{plan.heading[1]}</h2>
             <p className="lead" style={{maxWidth: 640}}>{plan.note}</p>
           </div>
         </div>
@@ -65,7 +65,7 @@ export function Approach() {
         <div className="proc">
           <div className="proc__mark" data-reveal="left">
             <div className="proc__card">
-              <svg viewBox="-40 -40 1180 1210" role="img" aria-label={`EC4YOU mark, ${lit} of 20 parts lit — step ${active + 1} of 4`}>
+              <svg viewBox="-40 -40 1180 1210" role="img" aria-label={fmt(plan.markLabel, {lit, step: active + 1})}>
                 {SHAPES.map((s, i) => {
                   const state = s.step < active ? 'done' : s.step === active ? 'now' : 'todo';
                   const delay = {transitionDelay: `${(i % 7) * 60}ms`};
@@ -75,7 +75,7 @@ export function Approach() {
                 })}
               </svg>
               <div className="proc__meter" aria-hidden="true"><i style={{width: `${(lit / 20) * 100}%`}} /></div>
-              <p className="proc__cap"><b>{String(active + 1).padStart(2, '0')}</b> {CAPTION[active]} <span>{lit}/20</span></p>
+              <p className="proc__cap"><b>{String(active + 1).padStart(2, '0')}</b> {plan.steps[active].caption} <span>{lit}/20</span></p>
             </div>
           </div>
 
@@ -87,7 +87,7 @@ export function Approach() {
                   <span className="pstep__body">
                     <b className="h3">{s.name}</b>
                     <span className="pstep__txt">{s.body}</span>
-                    <span className="chips">{GROUPS[i].map((g) => <span key={g} className="chip">{g}</span>)}</span>
+                    <span className="chips">{s.chips.map((g) => <span key={g} className="chip">{g}</span>)}</span>
                   </span>
                 </button>
               </li>

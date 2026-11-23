@@ -1,6 +1,7 @@
 'use client';
 import {useEffect, useRef} from 'react';
-import {brand, sticky} from '@/content';
+import {brand} from '@/brand';
+import {useI18n} from '@/i18n/I18nProvider';
 import {whatsappUrl} from '@/lib/attribution';
 import {onFrame} from '@/lib/scroll';
 import {track} from '@/lib/track';
@@ -21,7 +22,8 @@ function WhatsAppGlyph({size = 20}: {size?: number}) {
  */
 export function StickyCta() {
   const bar = useRef<HTMLDivElement>(null);
-    const wa = whatsappUrl(brand.whatsapp, brand.whatsappText);
+  const {t} = useI18n();
+  const wa = whatsappUrl(brand.whatsapp, t.common.whatsappText);
 
   useEffect(() => {
     let last = '';
@@ -43,9 +45,9 @@ export function StickyCta() {
     <>
       <div className="sticky-cta" ref={bar}>
         <a className="btn btn--primary" href="#contact" onClick={() => track('cta_click', {location: 'sticky_bar'})}>
-          {sticky.primary} <Icon name="arrowRight" size={16} />
+          {t.sticky.primary} <Icon name="arrowRight" size={16} />
         </a>
-        <a className="sticky-cta__wa" href={wa} target="_blank" rel="noopener" aria-label={`${sticky.whatsapp} (opens WhatsApp)`} onClick={() => track('whatsapp_click', {location: 'sticky_bar'})}>
+        <a className="sticky-cta__wa" href={wa} target="_blank" rel="noopener" aria-label={t.common.whatsappAria} onClick={() => track('whatsapp_click', {location: 'sticky_bar'})}>
           <WhatsAppGlyph />
         </a>
       </div>

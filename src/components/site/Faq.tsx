@@ -1,6 +1,7 @@
 'use client';
 import {useState} from 'react';
-import {brand, faq} from '@/content';
+import {brand} from '@/brand';
+import {useI18n} from '@/i18n/I18nProvider';
 import {useReveals} from '@/hooks/useReveals';
 import {whatsappUrl} from '@/lib/attribution';
 import {track} from '@/lib/track';
@@ -10,18 +11,20 @@ import {WhatsAppGlyph} from '../StickyCta';
 export function Faq() {
   const ref = useReveals<HTMLElement>();
   const [open, setOpen] = useState<number | null>(0);
+  const {t} = useI18n();
+  const faq = t.faq;
   return (
     <section id="faq" ref={ref} className="sec sec--alt" aria-labelledby="faq-title">
       <div className="wrap faq">
         <div className="faq__intro" data-reveal>
-          <span className="eyebrow">FAQ</span>
+          <span className="eyebrow">{faq.eyebrow}</span>
           <h2 className="h2" id="faq-title">{faq.heading}</h2>
           <div className="askbox">
-            <b>Still have a question?</b>
-            <p>Talk to our team directly — we’ll help you find the right approach.</p>
+            <b>{faq.askTitle}</b>
+            <p>{faq.askBody}</p>
             <div>
-              <a className="btn btn--ink" href="#contact">Let’s Talk <Icon name="arrowRight" size={16} /></a>
-              <a className="btn btn--wa" href={whatsappUrl(brand.whatsapp, brand.whatsappText)} target="_blank" rel="noopener" onClick={() => track('whatsapp_click', {location: 'faq'})}><span className="wa"><WhatsAppGlyph size={18} /></span>WhatsApp</a>
+              <a className="btn btn--ink" href="#contact">{t.common.letsTalk} <Icon name="arrowRight" size={16} /></a>
+              <a className="btn btn--wa" href={whatsappUrl(brand.whatsapp, t.common.whatsappText)} target="_blank" rel="noopener" onClick={() => track('whatsapp_click', {location: 'faq'})}><span className="wa"><WhatsAppGlyph size={18} /></span>{t.common.whatsapp}</a>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 'use client';
 import Script from 'next/script';
 import {useEffect, useState} from 'react';
-import {consent as copy} from '@/content';
+import {useI18n} from '@/i18n/I18nProvider';
 import {captureAttribution} from '@/lib/attribution';
 
 /**
@@ -27,6 +27,8 @@ const anyTag = Boolean(GTM || PIXEL || LINKEDIN);
 export function SiteScripts() {
   const [choice, setChoice] = useState<Choice>(null);
   const [open, setOpen] = useState(false);
+  const {t} = useI18n();
+  const copy = t.consent;
 
   useEffect(() => {
     captureAttribution();
@@ -95,7 +97,7 @@ export function SiteScripts() {
           <div>
             <b id="consent-title">{copy.title}</b>
             <p>
-              {copy.body} <a href="/privacy">{copy.more}</a>
+              {copy.body} <a href="/privacy" hrefLang="en">{t.common.privacy}</a>
             </p>
           </div>
           <div className="consent-bar__acts">

@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
-import {brand} from '@/content';
+import {notFound} from 'next/navigation';
+import {brand} from '@/brand';
 import {SubPage} from '@/components/SubPage';
 
 export const metadata: Metadata = {title: 'Privacy Policy — EC4YOU'};
@@ -9,7 +10,9 @@ export const metadata: Metadata = {title: 'Privacy Policy — EC4YOU'};
 // then remove the draft notice and set the date.
 const UPDATED = '[date]';
 
-export default function Privacy() {
+/** Legal pages are published in English only; /ar/... and /fr/... return 404. */
+export default async function Privacy({params}: {params: Promise<{lang: string}>}) {
+  if ((await params).lang !== 'en') notFound();
   return (
     <SubPage>
       <article className="legal">
@@ -48,7 +51,7 @@ export default function Privacy() {
         <p>Enquiries are kept for as long as needed to respond and follow up, and for up to [retention period] afterwards unless you ask us to delete them sooner or we must keep them longer by law.</p>
 
         <h2>Your rights</h2>
-        <p>Depending on where you live (for example under the UAE Personal Data Protection Law, Canada’s PIPEDA, or the EU/UK GDPR), you may have the right to access, correct or delete your personal information, to object to or restrict certain uses, and to withdraw consent. To make a request, email <a href={`mailto:${brand.email}`}>{brand.email}</a>. You may also complain to your local data-protection authority.</p>
+        <p>Depending on where you live (for example under India’s Digital Personal Data Protection Act 2023, the UAE Personal Data Protection Law, Canada’s PIPEDA, or the EU/UK GDPR), you may have the right to access, correct or delete your personal information, to object to or restrict certain uses, and to withdraw consent. To make a request, email <a href={`mailto:${brand.email}`}>{brand.email}</a>. You may also complain to your local data-protection authority.</p>
 
         <h2>Children</h2>
         <p>This website is intended for businesses and is not directed at children.</p>

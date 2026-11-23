@@ -41,6 +41,8 @@ export async function POST(req: Request) {
     industry: str(body.industry, MAX.industry),
     description: str(body.description, MAX.description),
     consent: body.consent === true,
+    /** Site language the visitor used: en, ar or fr. */
+    locale: ['en', 'ar', 'fr'].includes(String(body.locale)) ? String(body.locale) : 'en',
     submitted_at: new Date().toISOString(),
     attribution: Object.fromEntries(ATTR.map((k) => [k, str((body.attribution as Record<string, unknown> | undefined)?.[k], 300)]).filter(([, v]) => v)),
   };
@@ -66,6 +68,7 @@ export async function POST(req: Request) {
       `Phone: ${lead.phone}`,
       `Looking for: ${lead.service || '—'}`,
       `Industry: ${lead.industry || '—'}`,
+      `Site language: ${lead.locale}`,
       '',
       lead.description || '(no description)',
       '',
